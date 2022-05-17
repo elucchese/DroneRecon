@@ -36,7 +36,7 @@ public class DBManager {
 
     // Insert DB record into AreaGridTiles table.
     // This is the "C" in CRUD.
-    public void insertAreaGridTile(String sAreaID, int iX, int iY, int iR, int iG){
+    public void insertAreaGridTile(String sAreaID, int iX, int iY, int iR, int iG) {
 
         Connection c = connect();
         Statement stmt = null;
@@ -51,8 +51,8 @@ public class DBManager {
             stmt.close();
             c.commit();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -60,7 +60,7 @@ public class DBManager {
 
     // Select DB records from AreaGridTiles table.
     // This is the "R" in CRUD.
-    public ArrayList<AreaGridTile> readAreaGridTiles(String sAreaID){
+    public ArrayList<AreaGridTile> readAreaGridTiles(String sAreaID) {
 
         Connection c = connect();
         Statement stmt = null;
@@ -72,9 +72,9 @@ public class DBManager {
             c.setAutoCommit(false);
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM AreaGridTiles WHERE area_id = '" + sAreaID + "';" );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM AreaGridTiles WHERE area_id = '" + sAreaID + "';");
 
-            while ( rs.next() ) {
+            while (rs.next()) {
                 sAreaID = rs.getString("area_id");
                 int iX = rs.getInt("x");
                 int iY = rs.getInt("y");
@@ -106,23 +106,24 @@ public class DBManager {
             stmt.close();
             c.close();
 
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
 
         return lstTiles;
     }
 
     // Only for testing in an IDE.
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         DBManager oDBManager = new DBManager();
-        oDBManager.insertAreaGridTile("abc123",10,10,243,109);
+        oDBManager.insertAreaGridTile("abc123", 10, 10, 243, 109);
         System.out.println("Record inserted.");
 
         ArrayList<AreaGridTile> oTiles = oDBManager.readAreaGridTiles("23abc");
 
-        for(AreaGridTile oTile: oTiles){
+        for (AreaGridTile oTile : oTiles) {
             System.out.println("tile: " + oTile.x + "," + oTile.y);
         }
     }
+}

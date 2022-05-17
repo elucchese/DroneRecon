@@ -23,11 +23,16 @@ public class PortalDBService extends HttpServlet{
         // "r"
         // "g"
         // ############
-
+        String sArea_id = request.getParameter("area_id");
+        int iTilex = Integer.parseInt(request.getParameter("tilex"));
+        int iTiley = Integer.parseInt(request.getParameter("tiley"));
+        int sRed =  Integer.parseInt(request.getParameter("r"));
+        int sGreen =  Integer.parseInt(request.getParameter("g"));
 
         // ############
         // Instantiate a DBManager instance.
         // ############
+        DBManager oDBManager = new DBManager();
 
         // Set DB location (Currently uses current DB file name and adds direct path from C drive before it).
         oDBManager.DBLocation = System.getProperty("catalina.base") + "\\webapps\\dronereconportal\\db\\" + oDBManager.DBLocation;
@@ -38,6 +43,7 @@ public class PortalDBService extends HttpServlet{
         // ############
         // Call insertAreaGridTile on db manager object and pass the 5 values from above.
         // ############
+        oDBManager.insertAreaGridTile(sArea_id, iTiley, iTilex, sRed, sGreen);
 
 
         // Response with confirmation of DB record written.
